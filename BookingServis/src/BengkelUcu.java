@@ -152,18 +152,26 @@ public class BengkelUcu {
             System.out.println("Daftar antrian kosong.");
             return;
         }
+    
+        // Unicode table header
+        System.out.println("┌─────┬─────────────────────┬───────────────┬──────────┬───────────────┬──────────────────────┬──────────────────┐");
+        System.out.printf("│ %-4s│ %-19s│ %-12s│ %-7s│ %-12s| %-19s│ %-15s│%n", "ID", "Nama Pelanggan", "Jenis Motor", "No Polisi", "Keluhan", "Status Antrian", "Total Harga Servis");
+        System.out.println("├─────┼─────────────────────┼───────────────┼──────────┼───────────────┼──────────────────────┼──────────────────┤");
         for (int i = front; i <= rear; i++) {
-            System.out.println("ID: " + i);
-            System.out.println("Nama Pelanggan: " + namaPelanggan[i]);
-            System.out.println("Jenis Motor: " + jenisMotor[i]);
-            System.out.println("No Polisi: " + noPolisi[i]);
-            System.out.println("Keluhan: " + keluhan[i]);
-            System.out.println("Status Antrian: " + statusAntrian[i]);
-            System.out.println("Total Harga Servis: Rp. " + totalHargaServis[i]);
-            System.out.println("================================");
+            System.out.printf("│ %-4d│ %-19s│ %-12s│ %-7s│ %-12s│ %-19s│ %-15s│%n",
+                    i,
+                    namaPelanggan[i],
+                    jenisMotor[i],
+                    noPolisi[i],
+                    keluhan[i],
+                    statusAntrian[i],
+                    "Rp. " + totalHargaServis[i]);
         }
+        // Unicode table footer
+        System.out.println("└───────┴─────────────────────┴───────────────┴──────────┴───────────────┴──────────────────────┴──────────────────┘");
     }
-
+    
+    
     // private static void ubahStatusAntrian() {
     // System.out.println("=== Ubah Status Antrian ===");
     // System.out.println("Masukan ID Antrian yang ingin di ubah statusnya");
