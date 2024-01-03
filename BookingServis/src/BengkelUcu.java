@@ -3,7 +3,7 @@ package BengkelUcu;
 import java.util.Scanner;
 
 public class BengkelUcu {
-    private static final int MAX_ANTRIAN = 5; // Number Maksimal Booking
+    private static final int MAX_ANTRIAN = 5; // Number Maksimal Antri
 
     // Arrays to store booking information
     private static String[] namaPelanggan = new String[MAX_ANTRIAN];
@@ -54,10 +54,11 @@ public class BengkelUcu {
 
                 // menu pilihan ubah status antrian
                 } else if (opsiAntrian.equals("3")) {
-                    // ubahStatusBooking();
+                    // ubahStatusAntrian();
 
                 } else if (opsiAntrian.equals("4")) {
                     System.out.println("Reset Antrian");
+
                 } else if (opsiAntrian.equals("5"))
                     System.out.println();
                 // MENU PILIHAN ANTRIAN END
@@ -80,7 +81,7 @@ public class BengkelUcu {
             // EXIT
             } else {
                 System.out.println("EXIT");
-                break; // Exit the loop and end the program
+                break; // Exit dari loop and end the program
             }
         }
     }
@@ -128,9 +129,9 @@ public class BengkelUcu {
         daftarAntrian[rear][3][0] = "Keluhan";
         daftarAntrian[rear][3][1] = keluhanInput;
         daftarAntrian[rear][4][0] = "Status";
-        daftarAntrian[rear][4][1] = "Belum Selesai";
+        daftarAntrian[rear][4][1] = statusAntrianInput;
         daftarAntrian[rear][5][0] = "Total Harga Servis";
-        daftarAntrian[rear][5][1] = "0"; // Initialize totalHargaServis for this booking
+        daftarAntrian[rear][5][1] = "0"; // Initialize totalHargaServis for this queue
     }
 
     private static void lihatdaftarAntrian() {
@@ -221,7 +222,6 @@ public class BengkelUcu {
         return 50000; // Example value
     }
 }
-
 
 
 
