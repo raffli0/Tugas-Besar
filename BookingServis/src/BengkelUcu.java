@@ -13,7 +13,7 @@ public class BengkelUcu {
     private static String[] statusAntrian = new String[MAX_ANTRIAN];
     private static double[] totalHargaServis = new double[MAX_ANTRIAN];
     private static String[][][] daftarAntrian = new String[MAX_ANTRIAN][6][2];
-    
+
     // Queue front dan rear pointers
     private static int front = -1;
     private static int rear = -1;
@@ -48,11 +48,11 @@ public class BengkelUcu {
                     tambahDaftarAntrian();
                     System.out.println("Daftar Antrian ditambahkan! ");
 
-                // menu pilihan lihat daftar antrian
+                    // menu pilihan lihat daftar antrian
                 } else if (opsiAntrian.equals("2")) {
                     lihatdaftarAntrian();
 
-                // menu pilihan ubah status antrian
+                    // menu pilihan ubah status antrian
                 } else if (opsiAntrian.equals("3")) {
                     // ubahStatusAntrian();
 
@@ -63,7 +63,7 @@ public class BengkelUcu {
                     System.out.println();
                 // MENU PILIHAN ANTRIAN END
 
-            // MENU TRANSAKSI
+                // MENU TRANSAKSI
             } else if (pilihan.equals("2")) {
                 System.out.println("1. Print Struk");
 
@@ -71,22 +71,34 @@ public class BengkelUcu {
 
                 String opsiTransaksi = inputan.nextLine();
 
-                if(opsiTransaksi.equals("1")) {
+                if (opsiTransaksi.equals("1")) {
                     printStruk();
                 }
 
-            // MENU STRUK
+                // MENU STRUK
             } else if (pilihan.equals("3")) {
                 System.out.println("Cara Penggunaan");
-            // EXIT
-            } else if (pilihan.equals("4")) {
-                System.out.println("Apakah anda ingin keluar dari aplikasi ? Y / N");
-                    String exit = inputan.nextLine();
 
-                    if(exit.equalsIgnoreCase("N/n")) {
-                        break; // Exit dari loop and end the program
+                // EXIT
+
+            } else if (pilihan.equals("4")) {
+                boolean keluar = false;
+                do {
+                    System.out.println("Ingin keluar dari aplikasi ? y / n");
+                    String inputUser = inputan.nextLine();
+                    if (inputUser.equalsIgnoreCase("y")) {
+                        keluar = true;
+                    } else if (inputUser.equalsIgnoreCase("n")) {
+                        keluar = false;
+                    } else {
+                        System.out.println(
+                                "Input tidak valid. Masukkan 'y' untuk keluar atau 'n' untuk tetap berada di dalam aplikasi.");
                     }
+                } while (!keluar);
+                System.out.println("Anda telah keluar dari aplikasi. Terima kasih!");
+                break;
             }
+
         }
     }
 
@@ -113,15 +125,13 @@ public class BengkelUcu {
         }
         rear++;
 
-        // simpan data ke dalam array 1 dimensi 
+        // simpan data ke dalam array 1 dimensi
         namaPelanggan[rear] = namaPelangganInput;
         jenisMotor[rear] = jenisMotorInput;
         noPolisi[rear] = noPolisiInput;
         keluhan[rear] = keluhanInput;
         statusAntrian[rear] = "Proses";
         totalHargaServis[rear] = 0;
-
-
 
         // simpan data ke dalam array multi dimensi
         daftarAntrian[rear][0][0] = "Nama Pelanggan";
@@ -157,18 +167,18 @@ public class BengkelUcu {
     }
 
     // private static void ubahStatusBooking() {
-    //     System.out.println("=== Ubah Status Antrian ===");
-    //     System.out.println("Masukan ID Antrian yang ingin di ubah statusnya");
-    //     int id = Integer.parseInt(inputan.nextLine());
+    // System.out.println("=== Ubah Status Antrian ===");
+    // System.out.println("Masukan ID Antrian yang ingin di ubah statusnya");
+    // int id = Integer.parseInt(inputan.nextLine());
 
-    //     if (id >= front && id <= rear) {
-    //         System.out.println("Masukan status baru (Selesai/Belum Selesai)");
-    //         String statusBaru = inputan.nextLine();
-    //         statusBooking[id] = statusBaru;
-    //         System.out.println("Status Booking di ubah! ");
-    //     } else {
-    //         System.out.println("ID tidak valid. Daftar Booking tidak ditemukan");
-    //     }
+    // if (id >= front && id <= rear) {
+    // System.out.println("Masukan status baru (Selesai/Belum Selesai)");
+    // String statusBaru = inputan.nextLine();
+    // statusBooking[id] = statusBaru;
+    // System.out.println("Status Booking di ubah! ");
+    // } else {
+    // System.out.println("ID tidak valid. Daftar Booking tidak ditemukan");
+    // }
     // }
 
     private static void printStruk() {
@@ -180,7 +190,6 @@ public class BengkelUcu {
         if (nomorAntrian >= front && nomorAntrian <= rear) {
             double totalHargaServisBooking = totalHargaServis[nomorAntrian];
             double totalHargaSparepart = hitungTotalHargaSparepart();
-
 
             System.out.println("=========================================");
             System.out.println("\t\t STRUK PEMBAYARAN");
@@ -226,6 +235,3 @@ public class BengkelUcu {
         return 50000; // Example value
     }
 }
-
-
-
