@@ -12,7 +12,7 @@ public class BengkelUcu {
     private static String[] keluhan = new String[MAX_ANTRIAN];
     private static String[] statusAntrian = new String[MAX_ANTRIAN];
     private static double[] totalHargaServis = new double[MAX_ANTRIAN];
-    private static String[][][] daftarAntrian = new String[MAX_ANTRIAN][6][2];
+    private static String[][][]daftarAntrian = new String[MAX_ANTRIAN][6][2];
 
     // Queue front dan rear pointers
     private static int front = -1;
@@ -87,7 +87,7 @@ public class BengkelUcu {
                     String userInput = inputan.nextLine();
 
                     if (userInput.equalsIgnoreCase("y")) {
-                        System.out.println("Keluar dari aplikasi"); 
+                        System.out.println("Keluar dari aplikasi");
                         System.exit(0);
                     } else if (userInput.equalsIgnoreCase("n")) {
                         break;
@@ -141,7 +141,7 @@ public class BengkelUcu {
         daftarAntrian[rear][3][0] = "Keluhan";
         daftarAntrian[rear][3][1] = keluhanInput;
         daftarAntrian[rear][4][0] = "Status";
-        daftarAntrian[rear][4][1] = "statusAntrian";
+        daftarAntrian[rear][4][1] = "Proses";
         daftarAntrian[rear][5][0] = "Total Harga Servis";
         daftarAntrian[rear][5][1] = "0"; // Initialize totalHargaServis for this queue
     }
@@ -164,13 +164,13 @@ public class BengkelUcu {
         }
     }
 
-    // private static void ubahStatusBooking() {
+    // private static void ubahStatusAntrian() {
     // System.out.println("=== Ubah Status Antrian ===");
     // System.out.println("Masukan ID Antrian yang ingin di ubah statusnya");
     // int id = Integer.parseInt(inputan.nextLine());
 
     // if (id >= front && id <= rear) {
-    // System.out.println("Masukan status baru (Selesai/Belum Selesai)");
+    // System.out.println("Masukan status baru (Selesai/Belum Selesai )");
     // String statusBaru = inputan.nextLine();
     // statusBooking[id] = statusBaru;
     // System.out.println("Status Booking di ubah! ");
@@ -181,14 +181,26 @@ public class BengkelUcu {
 
     private static void printStruk() {
         lihatdaftarAntrian();
-
+    
         System.out.print("Masukkan nomor antrian untuk print struk: ");
         int nomorAntrian = Integer.parseInt(inputan.nextLine());
-
+    
         if (nomorAntrian >= front && nomorAntrian <= rear) {
-            double totalHargaServisBooking = totalHargaServis[nomorAntrian];
-            double totalHargaSparepart = hitungTotalHargaSparepart();
+            System.out.print("Masukkan status antrian (Selesai/Belum Selesai): ");
+            String statusInput = inputan.nextLine();
+            daftarAntrian[nomorAntrian][4][1] = statusInput;
+    
+            System.out.print("Masukkan harga servis: ");
+            double totalHargaServisInput = Double.parseDouble(inputan.nextLine());
+            daftarAntrian[nomorAntrian][5][1] = String.valueOf(totalHargaServisInput);
+    
+            // Assume total harga sparepart is entered by the user, modify as needed
+            System.out.print("Masukkan harga sparepart: ");
+            double totalHargaSparepartInput = Double.parseDouble(inputan.nextLine());
+    
 
+            double totalPembayaran = totalHargaServisInput + totalHargaSparepartInput;
+    
             System.out.println("=========================================");
             System.out.println("\t\t STRUK PEMBAYARAN");
             System.out.println("=========================================");
@@ -197,24 +209,15 @@ public class BengkelUcu {
             System.out.printf("%-20s%-20s\n", "No Polisi:", daftarAntrian[nomorAntrian][2][1]);
             System.out.printf("%-20s%-20s\n", "Keluhan:", daftarAntrian[nomorAntrian][3][1]);
             System.out.printf("%-20s%-20s\n", "Status Antrian:", daftarAntrian[nomorAntrian][4][1]);
-            System.out.printf("%-20s%-20s\n", "Total Harga Servis:", "Rp. " + totalHargaServisBooking);
-            System.out.printf("%-20s%-20s\n", "Total Harga Sparepart:", "Rp. " + totalHargaSparepart);
+            System.out.printf("%-20s%-20s\n", "Total Harga Servis:", "Rp. " + totalHargaServisInput);
+            System.out.printf("%-20s%-20s\n", "Total Harga Sparepart:", "Rp. " + totalHargaSparepartInput);
             System.out.println("=========================================");
-            double totalPembayaran = totalHargaServisBooking + totalHargaSparepart;
-            System.out.printf("%-20s%-20s\n", "Total Pembayaran Sebelum Potongan:", "Rp. " + totalPembayaran);
-
-            // Apply potongan based on totalPembayaran
-            double potongan = (totalPembayaran >= 200000) ? 100000 : 0;
-            System.out.printf("%-20s%-20s\n", "Besarnya Potongan:", "Rp. " + potongan);
-
-            // Calculate jumByr after applying potongan
-            double jumByr = totalPembayaran - potongan;
-            System.out.printf("%-20s%-20s\n", "Total Pembayaran Setelah Potongan:", "Rp. " + jumByr);
-
+    
             System.out.print("Tunai        = Rp. ");
-            int tunai = Integer.parseInt(inputan.nextLine());
+            double tunai = Double.parseDouble(inputan.nextLine());
+    
             System.out.println("=========================================");
-            double kembalian = tunai - jumByr;
+            double kembalian = tunai - totalPembayaran;
             System.out.printf("%-20s%-20s\n", "Kembalian:", "Rp. " + kembalian);
             System.out.println("=========================================");
             System.out.println("Tgl. 01-01-2024     23:11:59        V.0.1");
@@ -226,10 +229,11 @@ public class BengkelUcu {
             System.out.println("Nomor antrian tidak valid. Silakan coba lagi.");
         }
     }
+    
 
-    private static double hitungTotalHargaSparepart() {
-        // Implement sparepart logic here
-        // For simplicity, return a fixed value for now
-        return 50000; // Example value
-    }
+    // private static double hitungTotalHargaSparepart() {
+    //     // Implement sparepart logic here
+    //     // For simplicity, return a fixed value for now
+    //     return 50000; // Example value
+    // }
 }
