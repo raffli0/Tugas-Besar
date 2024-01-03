@@ -32,7 +32,7 @@ public class BengkelUcu {
             System.out.print("Pilih menu (1/2/3/4): ");
             String pilihan = inputan.nextLine();
 
-            // menu pilihan Booking START
+            // menu pilihan Antrian START
             if (pilihan.equals("1")) {
                 System.out.println("1. Tambah Daftar Antrian");
                 System.out.println("2. Lihat Daftar Antrian");
@@ -41,24 +41,24 @@ public class BengkelUcu {
                 System.out.println("5. Keluar");
 
                 System.out.print("Pilih menu (1/2/3/4/5): ");
-                String opsiBooking = inputan.nextLine();
+                String opsiAntrian = inputan.nextLine();
 
                 // menu pilihan Tambah daftar booking
-                if (opsiBooking.equals("1")) {
+                if (opsiAntrian.equals("1")) {
                     tambahDaftarAntrian();
                     System.out.println("Daftar Antrian ditambahkan! ");
 
                 // menu pilihan lihat daftar booking
-                } else if (opsiBooking.equals("2")) {
+                } else if (opsiAntrian.equals("2")) {
                     lihatdaftarAntrian();
 
                 // menu pilihan ubah status booking
-                } else if (opsiBooking.equals("3")) {
+                } else if (opsiAntrian.equals("3")) {
                     // ubahStatusBooking();
 
-                } else if (opsiBooking.equals("4")) {
+                } else if (opsiAntrian.equals("4")) {
                     System.out.println("Reset Antrian");
-                } else if (opsiBooking.equals("5"))
+                } else if (opsiAntrian.equals("5"))
                     System.out.println();
                 // MENU PILIHAN BOOKING END
 
@@ -145,7 +145,7 @@ public class BengkelUcu {
             System.out.println("Jenis Motor: " + jenisMotor[i]);
             System.out.println("No Polisi: " + noPolisi[i]);
             System.out.println("Keluhan: " + keluhan[i]);
-            System.out.println("Status Booking: " + statusAntrian[i]);
+            System.out.println("Status Antrian: " + statusAntrian[i]);
             System.out.println("Total Harga Servis: Rp. " + totalHargaServis[i]);
             System.out.println("================================");
         }
@@ -184,7 +184,7 @@ public class BengkelUcu {
             System.out.printf("%-20s%-20s\n", "Jenis Motor:", daftarAntrian[nomorAntrian][1][1]);
             System.out.printf("%-20s%-20s\n", "No Polisi:", daftarAntrian[nomorAntrian][2][1]);
             System.out.printf("%-20s%-20s\n", "Keluhan:", daftarAntrian[nomorAntrian][3][1]);
-            System.out.printf("%-20s%-20s\n", "Status Booking:", daftarAntrian[nomorAntrian][4][1]);
+            System.out.printf("%-20s%-20s\n", "Status Antrian:", daftarAntrian[nomorAntrian][4][1]);
             System.out.printf("%-20s%-20s\n", "Total Harga Servis:", "Rp. " + totalHargaServisBooking);
             System.out.printf("%-20s%-20s\n", "Total Harga Sparepart:", "Rp. " + totalHargaSparepart);
             System.out.println("=========================================");
