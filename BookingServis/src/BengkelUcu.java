@@ -82,21 +82,19 @@ public class BengkelUcu {
                 // EXIT
 
             } else if (pilihan.equals("4")) {
-                boolean keluar = false;
-                do {
-                    System.out.println("Ingin keluar dari aplikasi ? y / n");
-                    String inputUser = inputan.nextLine();
-                    if (inputUser.equalsIgnoreCase("y")) {
-                        keluar = true;
-                    } else if (inputUser.equalsIgnoreCase("n")) {
-                        keluar = false;
+                while (true) {
+                    System.out.print("Ingin keluar dari apilkasi ? y / n");
+                    String userInput = inputan.nextLine();
+
+                    if (userInput.equalsIgnoreCase("y")) {
+                        System.out.println("Keluar dari aplikasi"); 
+                        System.exit(0);
+                    } else if (userInput.equalsIgnoreCase("n")) {
+                        break;
                     } else {
-                        System.out.println(
-                                "Input tidak valid. Masukkan 'y' untuk keluar atau 'n' untuk tetap berada di dalam aplikasi.");
+                        System.out.println("Input tidak valid");
                     }
-                } while (!keluar);
-                System.out.println("Anda telah keluar dari aplikasi. Terima kasih!");
-                break;
+                }
             }
 
         }
