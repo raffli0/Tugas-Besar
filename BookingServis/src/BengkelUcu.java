@@ -43,16 +43,16 @@ public class BengkelUcu {
                 System.out.print("Pilih menu (1/2/3/4/5): ");
                 String opsiAntrian = inputan.nextLine();
 
-                // menu pilihan Tambah daftar booking
+                // menu pilihan Tambah daftar antrian
                 if (opsiAntrian.equals("1")) {
                     tambahDaftarAntrian();
                     System.out.println("Daftar Antrian ditambahkan! ");
 
-                // menu pilihan lihat daftar booking
+                // menu pilihan lihat daftar antrian
                 } else if (opsiAntrian.equals("2")) {
                     lihatdaftarAntrian();
 
-                // menu pilihan ubah status booking
+                // menu pilihan ubah status antrian
                 } else if (opsiAntrian.equals("3")) {
                     // ubahStatusBooking();
 
@@ -60,7 +60,7 @@ public class BengkelUcu {
                     System.out.println("Reset Antrian");
                 } else if (opsiAntrian.equals("5"))
                     System.out.println();
-                // MENU PILIHAN BOOKING END
+                // MENU PILIHAN ANTRIAN END
 
             // MENU TRANSAKSI
             } else if (pilihan.equals("2")) {
@@ -221,6 +221,7 @@ public class BengkelUcu {
         return 50000; // Example value
     }
 }
+
 
 
 
