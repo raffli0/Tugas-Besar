@@ -79,9 +79,13 @@ public class BengkelUcu {
             } else if (pilihan.equals("3")) {
                 System.out.println("Cara Penggunaan");
             // EXIT
-            } else {
-                System.out.println("EXIT");
-                break; // Exit dari loop and end the program
+            } else if (pilihan.equals("4")) {
+                System.out.println("Apakah anda ingin keluar dari aplikasi ? Y / N");
+                    String exit = inputan.nextLine();
+
+                    if(exit.equalsIgnoreCase("N/n")) {
+                        break; // Exit dari loop and end the program
+                    }
             }
         }
     }
@@ -112,7 +116,7 @@ public class BengkelUcu {
         // simpan data ke dalam array 1 dimensi 
         namaPelanggan[rear] = namaPelangganInput;
         jenisMotor[rear] = jenisMotorInput;
-        noPolisi[rear] = jenisMotorInput;
+        noPolisi[rear] = noPolisiInput;
         keluhan[rear] = keluhanInput;
         statusAntrian[rear] = "Proses";
         totalHargaServis[rear] = 0;
@@ -129,7 +133,7 @@ public class BengkelUcu {
         daftarAntrian[rear][3][0] = "Keluhan";
         daftarAntrian[rear][3][1] = keluhanInput;
         daftarAntrian[rear][4][0] = "Status";
-        daftarAntrian[rear][4][1] = statusAntrianInput;
+        daftarAntrian[rear][4][1] = "statusAntrian";
         daftarAntrian[rear][5][0] = "Total Harga Servis";
         daftarAntrian[rear][5][1] = "0"; // Initialize totalHargaServis for this queue
     }
