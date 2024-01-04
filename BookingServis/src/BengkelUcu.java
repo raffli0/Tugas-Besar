@@ -38,7 +38,7 @@ public class BengkelUcu {
                 System.out.println("2. Lihat Daftar Antrian");
                 System.out.println("3. Ubah Status Antrian");
                 System.out.println("4. Reset Data Antrian");
-                System.out.println("5. Keluar");
+                System.out.println("5. Keluar Dari Menu");
 
                 System.out.print("Pilih menu (1/2/3/4/5): ");
                 String opsiAntrian = inputan.nextLine();
@@ -66,7 +66,7 @@ public class BengkelUcu {
                 // MENU TRANSAKSI
             } else if (pilihan.equals("2")) {
                 System.out.println("1. Print Struk");
-
+                System.out.println("2. Keluar Dari Menu");
                 System.out.println("Pilih menu (1/2)");
 
                 String opsiTransaksi = inputan.nextLine();
@@ -95,6 +95,8 @@ public class BengkelUcu {
                         System.out.println("Input tidak valid");
                     }
                 }
+            } else {
+                System.out.println("Salah input ngab");
             }
 
         }
@@ -168,7 +170,7 @@ public class BengkelUcu {
                     "Rp. " + totalHargaServis[i]);
         }
         // Unicode table footer
-        System.out.println("└───────┴─────────────────────┴───────────────┴──────────┴───────────────┴──────────────────────┴──────────────────┘");
+        System.out.println("└─────┴────────────────────┴────────────────┴──────────┴───────────────┴──────────────────────┴──────────────────┘");
     }
     
     
