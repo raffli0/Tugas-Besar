@@ -85,7 +85,7 @@ public class BengkelUcu {
                 } else if (opsiAntrian.equals("5"))
                     // Clear screen
                     System.out.print("\033[H\033[2J");
-                System.out.flush();
+                    System.out.flush();
                 // MENU PILIHAN ANTRIAN END
 
                 // MENU TRANSAKSI
@@ -125,8 +125,6 @@ public class BengkelUcu {
 
                 System.out.println("4. Pilih menu 'Keluar' untuk keluar dari aplikasi.\n");
 
-                // Tambahan: Jika perlu, Anda dapat memberikan informasi tambahan atau instruksi
-                // khusus.
 
                 // Keluar dari menu cara penggunaan
                 System.out.print("Tekan Enter untuk kembali ke menu utama...");
@@ -199,7 +197,7 @@ public class BengkelUcu {
         daftarAntrian[rear][4][0] = "Status";
         daftarAntrian[rear][4][1] = "Proses";
         daftarAntrian[rear][5][0] = "Total Harga Servis";
-        daftarAntrian[rear][5][1] = "0"; // Initialize totalHargaServis for this queue
+        daftarAntrian[rear][5][1] = "0"; // inisialisasi totalHargaServis for this queue
     }
 
     private static void lihatdaftarAntrian() {
@@ -329,7 +327,6 @@ public class BengkelUcu {
         // Clear screen
         System.out.print("\033[H\033[2J");
         System.out.flush();
-
 
 
     }
