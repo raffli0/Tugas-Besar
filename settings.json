@@ -1,0 +1,9 @@
+{
+    "workbench.colorCustomizations": {
+      "terminal.background": "#000080", // latar belakang biru
+      "terminal.foreground": "#FFD700", // warna teks kuning
+    },
+    "terminal.integrated.fontFamily": "DejaVu Sans Mono",
+    "terminal.integrated.fontSize": 16
+  }
+  
