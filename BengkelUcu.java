@@ -207,7 +207,8 @@ public class BengkelUcu {
             inputan.nextLine();
             return;
         } else {
-            System.out.println("Daftar Antrian ditambahkan! ");
+            int id = rear + 1;
+            System.out.println("Nomor antrian anda: " + id + "\ndaftar antrian ditambahkan!");
             System.out.print("Tekan Enter untuk melanjutkan...");
             inputan.nextLine();
         }
@@ -309,7 +310,7 @@ public class BengkelUcu {
         System.out.println("│                  " + String.format("%-22s", "PRINT STRUK") + "         │");
         System.out.println("└─────────────────────────────────────────────────┘");
         // menampilkan daftar antrian mulai
-        System.out.println("=== Daftar Antrian ===");
+        // System.out.println("=== Daftar Antrian ===");
         if (front == -1) {
             System.out.println("Daftar antrian kosong.\n");
             // Keluar dari menu
@@ -355,14 +356,15 @@ public class BengkelUcu {
             double totalHargaSparepartInput = Double.parseDouble(inputan.nextLine());
 
             double totalPembayaran = totalHargaServisInput + totalHargaSparepartInput;
-
+            
             // Update totalPembayaran in daftarAntrian array
             daftarAntrian[nomorAntrian][5][1] = String.valueOf(totalPembayaran);
-
+            
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             String formatTanggalWaktu = now.format(formatter);
-
+            statusAntrian[nomorAntrian] = "Selesai";
+            
             System.out.println("┌─────────────────────────────────────────────────┐");
             System.out.println("│\t\t STRUK PEMBAYARAN                 │");
             System.out.println("│                                                 │");
@@ -385,7 +387,6 @@ public class BengkelUcu {
                 inputan.nextLine();
                 printStruk();
             } else {
-
                 System.out.println("─────────────────────────────────────────────────");
                 double kembalian = tunai - totalPembayaran;
                 System.out.printf("%-20s%-20s\n", "Kembalian:", "Rp. " + kembalian);
@@ -410,7 +411,6 @@ public class BengkelUcu {
                 // // Reset rear
                 // // rear--;
                 // // Tampilkan pesan sukses
-                // statusAntrian[nomorAntrian] = "Selesai";
                 // System.out.println("Antrian berhasil diselesaikan dan dihapus.");
             }
         } else {
@@ -420,7 +420,7 @@ public class BengkelUcu {
             printStruk();
         }
         System.out.println("Transaksi berhasil...");
-        System.out.println("Tekan Enter untuk melanjutkan");
+        System.out.print("Tekan Enter untuk melanjutkan");
         inputan.nextLine();
         printStruk();
 
