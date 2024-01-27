@@ -4,6 +4,6 @@
       "terminal.foreground": "#FFD700", // warna teks kuning
     },
     "terminal.integrated.fontFamily": "DejaVu Sans Mono",
-    "terminal.integrated.fontSize": 16
+    "terminal.integrated.fontSize": 18
   }
   
