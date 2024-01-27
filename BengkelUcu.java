@@ -55,7 +55,6 @@ public class BengkelUcu {
                 // menu pilihan Tambah daftar antrian
                 if (opsiAntrian.equals("1")) {
                     tambahDaftarAntrian();
-                    System.out.println("Daftar Antrian ditambahkan! ");
 
                     // menu pilihan lihat daftar antrian
                 } else if (opsiAntrian.equals("2")) {
@@ -65,10 +64,17 @@ public class BengkelUcu {
                 } else if (opsiAntrian.equals("3")) {
                     resetDaftarAntrian();
 
-                } else if (opsiAntrian.equals("4"))
+                } else if (opsiAntrian.equals("4")) {
                     // Clear screen
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
+
+                } else {
+                    // kondisi salah input
+                    System.out.println("Input tidak valid");
+                    System.out.print("Tekan Enter untuk melanjutkan...");
+                    inputan.nextLine();
+                }
                 // MENU PILIHAN ANTRIAN END
 
                 // MENU TRANSAKSI
@@ -162,14 +168,21 @@ public class BengkelUcu {
                     }
                 }
             } else {
+                // kondisi salah input
                 System.out.println("Input tidak valid");
+                System.out.print("Tekan Enter untuk melanjutkan...");
+                inputan.nextLine();
             }
         }
     }
     // END OF MENU
-
+    
     private static void tambahDaftarAntrian() {
-        System.out.println("=== Tambah Daftar Antrian ===");
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("┌─────────────────────────────────────────────────┐");
+        System.out.println("│               " + String.format("%-22s", "TAMBAH DAFTAR ANTRIAN") + "            │");
+        System.out.println("└─────────────────────────────────────────────────┘");
         System.out.print("Nama Pelanggan: ");
         String namaPelangganInput = inputan.nextLine();
         System.out.print("Jenis Motor: ");
@@ -178,11 +191,15 @@ public class BengkelUcu {
         String noPolisiInput = inputan.nextLine();
         System.out.print("Keluhan: ");
         String keluhanInput = inputan.nextLine();
-
+        
         // Check jika antrian full
         if (rear == MAX_ANTRIAN - 1) {
             System.out.println("Antrian penuh, mohon coba lagi nanti.");
             return;
+        }else {
+            System.out.println("Daftar Antrian ditambahkan! ");
+            System.out.print("Tekan Enter untuk melanjutkan...");
+            inputan.nextLine();
         }
 
         // Enqueue antrian (menambahkan)
@@ -215,9 +232,16 @@ public class BengkelUcu {
     }
 
     private static void lihatdaftarAntrian() {
-        System.out.println("=== Daftar Antrian ===");
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("┌─────────────────────────────────────────────────┐");
+        System.out.println("│                 " + String.format("%-22s", "DAFTAR ANTRIAN") + "          │");
+        System.out.println("└─────────────────────────────────────────────────┘");
         if (front == -1) {
-            System.out.println("Daftar antrian kosong.");
+            System.out.println("Daftar antrian kosong.\n");
+            // Keluar dari menu
+            System.out.print("Tekan Enter untuk kembali ke menu utama...");
+            inputan.nextLine();
             return;
         }
 
@@ -248,21 +272,6 @@ public class BengkelUcu {
         inputan.nextLine();
     }
 
-    // private static void ubahStatusAntrian() {
-    // System.out.println("=== Ubah Status Antrian ===");
-    // System.out.println("Masukan ID Antrian yang ingin di ubah statusnya");
-    // int id = Integer.parseInt(inputan.nextLine());
-
-    // if (id >= front && id <= rear) {
-    // System.out.println("Masukan status baru (Selesai/Belum Selesai )");
-    // String statusBaru = inputan.nextLine();
-    // statusAntrian[id] = statusBaru;
-    // System.out.println("Status Booking di ubah! ");
-    // } else {
-    // System.out.println("ID tidak valid. Daftar Booking tidak ditemukan");
-    // }
-    // }
-
     private static void resetDaftarAntrian() {
         // mengubah depan dan belakang menjadi ke nilai awal
         front = -1;
@@ -281,10 +290,18 @@ public class BengkelUcu {
     }
 
     private static void printStruk() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("┌─────────────────────────────────────────────────┐");
+        System.out.println("│                  " + String.format("%-22s", "PRINT STRUK") + "         │");
+        System.out.println("└─────────────────────────────────────────────────┘");
         // menampilkan daftar antrian mulai
         System.out.println("=== Daftar Antrian ===");
         if (front == -1) {
-            System.out.println("Daftar antrian kosong.");
+            System.out.println("Daftar antrian kosong.\n");
+            // Keluar dari menu
+            System.out.print("Tekan Enter untuk kembali ke menu utama...");
+            inputan.nextLine();
             return;
         }
 
@@ -350,7 +367,7 @@ public class BengkelUcu {
             double tunai = Double.parseDouble(inputan.nextLine());
 
             if (tunai < totalHargaServisInput + totalHargaSparepartInput) {
-                System.out.println("Uang anda kurang mohon coba lagi\n\n");
+                System.out.println("Maaf pembayaran kurang\n\n");
                 printStruk();
             } else {
 
@@ -367,6 +384,7 @@ public class BengkelUcu {
             }
         } else {
             System.out.println("Nomor antrian tidak valid. Silakan coba lagi.");
+            printStruk();
         }
         // KODE PRINT STRUK END
 
