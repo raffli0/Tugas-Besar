@@ -315,9 +315,9 @@ public class BengkelUcu {
         int nomorAntrian = Integer.parseInt(inputan.nextLine());
 
         if (nomorAntrian >= front && nomorAntrian <= rear) {
-            System.out.print("Masukkan status antrian (Selesai/Belum Selesai): ");
-            String statusInput = inputan.nextLine();
-            daftarAntrian[nomorAntrian][4][1] = statusInput;
+            // System.out.print("Masukkan status antrian (Selesai/Belum Selesai): ");
+            // String statusInput = inputan.nextLine();
+            // daftarAntrian[nomorAntrian][4][1] = statusInput;
 
             System.out.print("Masukkan harga servis: ");
             double totalHargaServisInput = Double.parseDouble(inputan.nextLine());
