@@ -28,9 +28,10 @@ public class BengkelUcu {
             System.out.println("1. Antrian");
             System.out.println("2. Transaksi");
             System.out.println("3. Cara Penggunaan");
-            System.out.println("4. Keluar");
+            System.out.println("4. About Us");
+            System.out.println("5. Keluar");
 
-            System.out.print("Pilih menu (1/2/3/4): ");
+            System.out.print("Pilih menu (1/2/3/4/5): ");
             String pilihan = inputan.nextLine();
 
             // menu pilihan Antrian START
@@ -85,12 +86,10 @@ public class BengkelUcu {
                 System.out.println("Aplikasi ini adalah sistem antrian dan transaksi untuk bengkel.\n");
                 System.out.println("Berikut adalah langkah-langkah penggunaan aplikasi:\n");
                 System.out.println("1. Pilih menu 'Antrian' untuk manajemen antrian pelanggan.");
-                System.out.println("   1. Tambah Daftar Antrian: Tambahkan pelanggan ke dalam antrian.");
+                System.out.println("   1. Tambah Daftar Antrian: Tambahkan pelanggan ke dalam antrian."); // tambahkan sedetail mungkin
                 System.out.println("   2. Lihat Daftar Antrian: Lihat daftar pelanggan yang sedang dalam antrian.");
-                System.out.println(
-                        "   3. Ubah Status Antrian: Ubah status antrian menjadi 'Selesai' atau 'Belum Selesai'.");
-                System.out.println("   4. Reset Data Antrian: Hapus semua data antrian dan mulai dari awal.");
-                System.out.println("   5. Keluar Dari Menu: Kembali ke menu utama.\n");
+                System.out.println("   3. Reset Data Antrian: Hapus semua data antrian dan mulai dari awal.");
+                System.out.println("   4. Keluar Dari Menu: Kembali ke menu utama.\n");
 
                 System.out.println("2. Pilih menu 'Transaksi' untuk melakukan transaksi pembayaran.");
                 System.out.println("   a. Print Struk: Pilih nomor antrian untuk mencetak struk pembayaran.\n");
@@ -106,8 +105,12 @@ public class BengkelUcu {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
 
-                // MENU STRUK
             } else if (pilihan.equals("4")) {
+                System.out.println("Developer : AING");
+                System.out.println("Flowchart : IZAL");
+                System.out.println("KONSEP : UMAM\n");
+
+            } else if (pilihan.equals("5")) {
                 while (true) {
                     System.out.print("Ingin keluar dari apilkasi ? y / n");
                     String userInput = inputan.nextLine();
@@ -183,13 +186,13 @@ public class BengkelUcu {
 
         // Unicode table header
         System.out.println(
-                "┌─────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┐");
+                "┌─────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┬───────────────────┐");
         System.out.printf("│ %-4s│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│%n", "ID", "Nama Pelanggan", "Jenis Motor",
                 "No Polisi", "Keluhan", "Status Antrian", "Total Harga Servis");
         System.out.println(
-                "├─────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┤");
+                "├─────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┼───────────────────┤");
         for (int i = front; i <= rear; i++) {
-            System.out.printf("│ %-4d│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│%n",
+            System.out.printf("│ %-4d│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│ %-18s│%n",
                     i,
                     namaPelanggan[i],
                     jenisMotor[i],
@@ -200,7 +203,7 @@ public class BengkelUcu {
         }
         // Unicode table footer
         System.out.println(
-                "└─────┴──────────────────┴──────────────────┴──────────────────┴──────────────────┴──────────────────┴──────────────────┘");
+                "└─────┴──────────────────┴──────────────────┴──────────────────┴──────────────────┴──────────────────┴───────────────────┘");
         // Daftar antrian end
 
         // Keluar dari menu
@@ -250,13 +253,13 @@ public class BengkelUcu {
 
         // Unicode table header
         System.out.println(
-                "┌─────┬───────────┬───────────┬───────────┬───────────┬───────────┬───────────┐");
-        System.out.printf("│ %-4s│ %-10s│ %-10s│ %-10s│ %-10s│ %-10s│ %-10s│%n", "ID", "Nama Pelanggan", "Jenis Motor",
+                "┌─────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┬───────────────────┐");
+        System.out.printf("│ %-4s│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│%n", "ID", "Nama Pelanggan", "Jenis Motor",
                 "No Polisi", "Keluhan", "Status Antrian", "Total Harga Servis");
         System.out.println(
-                "├─────┼───────────┼───────────┼───────────┼───────────┼───────────┼───────────┤");
+                "├─────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┼───────────────────┤");
         for (int i = front; i <= rear; i++) {
-            System.out.printf("│ %-4d│ %-10s│ %-10s│ %-10s│ %-10s│ %-10s│ %-10s│%n",
+            System.out.printf("│ %-4d│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│ %-18s│%n",
                     i,
                     namaPelanggan[i],
                     jenisMotor[i],
@@ -267,7 +270,7 @@ public class BengkelUcu {
         }
         // Unicode table footer
         System.out.println(
-                "└─────┴───────────┴───────────┴───────────┴───────────┴───────────┴───────────┘");
+                "└─────┴──────────────────┴──────────────────┴──────────────────┴──────────────────┴──────────────────┴───────────────────┘");
         // Daftar antrian end
 
         // KODE PRINT STRUK MULAI
@@ -308,16 +311,21 @@ public class BengkelUcu {
             System.out.print("Tunai        = Rp. ");
             double tunai = Double.parseDouble(inputan.nextLine());
 
-            System.out.println("===================================================");
-            double kembalian = tunai - totalPembayaran;
-            System.out.printf("%-20s%-20s\n", "Kembalian:", "Rp. " + kembalian);
-            System.out.println("===================================================");
-            System.out.println("Tgl.\t" + formatTanggalWaktu + " \t V 0.1");
-            System.out.println("---------------------------------------------------");
-            System.out.println("\t\t Terima Kasih");
-            System.out.println("---------------------------------------------------");
-            System.out.println("\t\t Nama Admin\n\n\n");
+            if (tunai < totalHargaServisInput + totalHargaSparepartInput) {
+                System.out.println("Uang anda kurang mohon coba lagi\n\n");
+                printStruk();
+            } else {
 
+                System.out.println("===================================================");
+                double kembalian = tunai - totalPembayaran;
+                System.out.printf("%-20s%-20s\n", "Kembalian:", "Rp. " + kembalian);
+                System.out.println("===================================================");
+                System.out.println("Tgl.\t" + formatTanggalWaktu + " \t V 0.1");
+                System.out.println("---------------------------------------------------");
+                System.out.println("\t\t Terima Kasih");
+                System.out.println("---------------------------------------------------");
+                System.out.println("\t\t Nama Admin\n\n\n");
+            }
         } else {
             System.out.println("Nomor antrian tidak valid. Silakan coba lagi.");
         }
@@ -334,4 +342,3 @@ public class BengkelUcu {
     }
 
 }
-// 
