@@ -24,7 +24,12 @@ public class BengkelUcu {
     public static void main(String[] args) {
         // PROGRAM UTAMA
         while (true) {
-            System.out.println("=== Main Menu ===");
+            System.out.println();
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("┌─────────────────────────────────────────────────┐");
+            System.out.println("│                   " + String.format("%-22s", "MAIN MENU") + "        │");
+            System.out.println("└─────────────────────────────────────────────────┘");
             System.out.println("1. Antrian");
             System.out.println("2. Transaksi");
             System.out.println("3. Cara Penggunaan");
@@ -36,6 +41,9 @@ public class BengkelUcu {
 
             // menu pilihan Antrian START
             if (pilihan.equals("1")) {
+                System.out.println();
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
                 System.out.println("1. Tambah Daftar Antrian");
                 System.out.println("2. Lihat Daftar Antrian");
                 System.out.println("3. Reset Data Antrian");
@@ -60,15 +68,21 @@ public class BengkelUcu {
                 } else if (opsiAntrian.equals("4"))
                     // Clear screen
                     System.out.print("\033[H\033[2J");
-                System.out.flush();
+                    System.out.flush();
                 // MENU PILIHAN ANTRIAN END
 
                 // MENU TRANSAKSI
             } else if (pilihan.equals("2")) {
+                System.out.println();
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                System.out.println("┌─────────────────────────────────────────────────┐");
+                System.out.println("│                   " + String.format("%-22s", "TRANSAKSI") + "        │");
+                System.out.println("└─────────────────────────────────────────────────┘");
                 System.out.println("1. Print Struk");
                 System.out.println("2. Keluar Dari Menu");
 
-                System.out.println("Pilih menu (1/2)");
+                System.out.print("Pilih menu (1/2): ");
 
                 String opsiTransaksi = inputan.nextLine();
 
@@ -82,7 +96,12 @@ public class BengkelUcu {
 
                 // MENU HELP
             } else if (pilihan.equals("3")) {
-                System.out.println("=== Cara Penggunaan ===\n");
+                System.out.println();
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                System.out.println("┌─────────────────────────────────────────────────┐");
+                System.out.println("│                 " + String.format("%-22s", "CARA PENGGUNAAN") + "          │");
+                System.out.println("└─────────────────────────────────────────────────┘");
                 System.out.println("Aplikasi ini adalah sistem antrian dan transaksi untuk bengkel.\n");
                 System.out.println("Berikut adalah langkah-langkah penggunaan aplikasi:\n");
                 System.out.println("1. Pilih menu 'Antrian' untuk manajemen antrian pelanggan.");
@@ -90,13 +109,16 @@ public class BengkelUcu {
                 System.out.println("   2. Lihat Daftar Antrian: Lihat daftar pelanggan yang sedang dalam antrian.");
                 System.out.println("   3. Reset Data Antrian: Hapus semua data antrian dan mulai dari awal.");
                 System.out.println("   4. Keluar Dari Menu: Kembali ke menu utama.\n");
-
+                
                 System.out.println("2. Pilih menu 'Transaksi' untuk melakukan transaksi pembayaran.");
-                System.out.println("   a. Print Struk: Pilih nomor antrian untuk mencetak struk pembayaran.\n");
+                System.out.println("   1. Print Struk: Pilih nomor antrian untuk mencetak struk pembayaran.\n");
+                System.out.println("   2. Keluar Dari Menu: Kembali ke menu utama.\n");
 
                 System.out.println("3. Pilih menu 'Cara Penggunaan' untuk melihat panduan penggunaan aplikasi.\n");
 
-                System.out.println("4. Pilih menu 'Keluar' untuk keluar dari aplikasi.\n");
+                System.out.println("4. Pilih menu 'About Us' untuk melihat Tentang Kami.\n");
+
+                System.out.println("5. Pilih menu 'Keluar' untuk keluar dari aplikasi.\n");
 
                 // Keluar dari menu cara penggunaan
                 System.out.print("Tekan Enter untuk kembali ke menu utama...");
@@ -105,14 +127,29 @@ public class BengkelUcu {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
 
+                // MENU ABOUT US
             } else if (pilihan.equals("4")) {
+                System.out.println();
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                System.out.println("┌─────────────────────────────────────────────────┐");
+                System.out.println("│                   " + String.format("%-22s", "ABOUT US") + "        │");
+                System.out.println("└─────────────────────────────────────────────────┘");
                 System.out.println("Developer : AING");
                 System.out.println("Flowchart : IZAL");
                 System.out.println("KONSEP : UMAM\n");
 
+                // Keluar dari menu cara penggunaan
+                System.out.print("Tekan Enter untuk kembali ke menu utama...");
+                inputan.nextLine();
+                // Clear screen
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+
+                // MENU EXIT
             } else if (pilihan.equals("5")) {
                 while (true) {
-                    System.out.print("Ingin keluar dari apilkasi ? y / n");
+                    System.out.print("Ingin keluar dari apilkasi ? y / n : ");
                     String userInput = inputan.nextLine();
 
                     if (userInput.equalsIgnoreCase("y")) {
@@ -296,9 +333,10 @@ public class BengkelUcu {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             String formatTanggalWaktu = now.format(formatter);
 
-            System.out.println("=================================================");
-            System.out.println("\t\t STRUK PEMBAYARAN ");
-            System.out.println("=================================================");
+            System.out.println("┌─────────────────────────────────────────────────┐");
+            System.out.println("│\t\t STRUK PEMBAYARAN                 │");
+            System.out.println("│                                                 │");
+            System.out.println("└─────────────────────────────────────────────────┘");
             System.out.printf("%-20s%-20s\n", "Nama Pelanggan:", daftarAntrian[nomorAntrian][0][1]);
             System.out.printf("%-20s%-20s\n", "Jenis Motor:", daftarAntrian[nomorAntrian][1][1]);
             System.out.printf("%-20s%-20s\n", "No Polisi:", daftarAntrian[nomorAntrian][2][1]);
@@ -306,7 +344,7 @@ public class BengkelUcu {
             System.out.printf("%-20s%-20s\n", "Status Antrian:", daftarAntrian[nomorAntrian][4][1]);
             System.out.printf("%-20s%-20s\n", "Total Harga Servis:", "Rp. " + totalHargaServisInput);
             System.out.printf("%-20s%-20s\n", "Total Harga Sparepart:", "Rp. " + totalHargaSparepartInput);
-            System.out.println("===================================================");
+            System.out.println("─────────────────────────────────────────────────");
 
             System.out.print("Tunai        = Rp. ");
             double tunai = Double.parseDouble(inputan.nextLine());
@@ -316,15 +354,16 @@ public class BengkelUcu {
                 printStruk();
             } else {
 
-                System.out.println("===================================================");
+                System.out.println("─────────────────────────────────────────────────");
                 double kembalian = tunai - totalPembayaran;
                 System.out.printf("%-20s%-20s\n", "Kembalian:", "Rp. " + kembalian);
-                System.out.println("===================================================");
+                System.out.println("─────────────────────────────────────────────────");
                 System.out.println("Tgl.\t" + formatTanggalWaktu + " \t V 0.1");
-                System.out.println("---------------------------------------------------");
+                System.out.println("─────────────────────────────────────────────────");
                 System.out.println("\t\t Terima Kasih");
-                System.out.println("---------------------------------------------------");
+                System.out.println("─────────────────────────────────────────────────");
                 System.out.println("\t\t Nama Admin\n\n\n");
+                System.out.println("─────────────────────────────────────────────────");
             }
         } else {
             System.out.println("Nomor antrian tidak valid. Silakan coba lagi.");
