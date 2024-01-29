@@ -209,11 +209,39 @@ public class BengkelUcu {
         } else {
             int id = rear + 1;
             System.out.println("Nomor antrian anda: " + id + "\ndaftar antrian ditambahkan!");
+        }
+
+        // waktu antrian customer ketika menambahkan antrian
+        LocalDateTime waktuMasukAntrian = LocalDateTime.now();
+        // estimasi waktu selesai set 30min servis
+        LocalDateTime waktuEstimasiSelesai = waktuMasukAntrian.plusMinutes(30); // estimasi 30 menit
+        // waktu sebelumnya 
+        
+        // format waktu masuk dan waktu selesai
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String formatWaktuMasuk = waktuMasukAntrian.format(formatter);
+        String formatEstimasiSelesai = waktuEstimasiSelesai.format(formatter);
+        
+        // If this is not the first customer, calculate the estimated service completion
+        // time for the next customer
+        if (rear == -1) {
+            System.out.println("Estimasi waktu selesai: " + formatWaktuMasuk + " - " + formatEstimasiSelesai);
+            System.out.print("Tekan Enter untuk melanjutkan...");
+            inputan.nextLine();
+            
+        } else {
+            LocalDateTime waktuSebelumnya = waktuEstimasiSelesai.plusMinutes(30);
+
+            // Format the estimated completion time for the next customer
+            waktuSebelumnya = waktuEstimasiSelesai;
+            waktuEstimasiSelesai = waktuSebelumnya.plusMinutes(30);
+            String formatWaktuSelesaiBerikutnya = waktuEstimasiSelesai.format(formatter);
+
+            System.out.println("Estimasi waktu selesai berikutnya: " + formatWaktuMasuk +" - "+  formatWaktuSelesaiBerikutnya);
             System.out.print("Tekan Enter untuk melanjutkan...");
             inputan.nextLine();
         }
 
-        // Enqueue antrian (menambahkan)
         if (front == -1) {
             front = 0;
         }
@@ -260,7 +288,7 @@ public class BengkelUcu {
         System.out.println(
                 "┌─────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┬───────────────────┐");
         System.out.printf("│ %-4s│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│%n", "ID", "Nama Pelanggan", "Jenis Motor",
-                "No Polisi", "Keluhan", "Status Antrian", "Total Harga Servis");
+                "No Polisi", "Keluhan", "Status Antrian", "Total Harga Servis", "Estimasi");
         System.out.println(
                 "├─────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┼───────────────────┤");
         for (int i = front; i <= rear; i++) {
@@ -298,7 +326,7 @@ public class BengkelUcu {
         totalHargaServis = new double[MAX_ANTRIAN];
         daftarAntrian = new String[MAX_ANTRIAN][6][2];
 
-        System.out.println("Data Antrian berhasil di reset");
+        System.out.println("\nData Antrian berhasil di reset");
         System.out.print("Tekan Enter untuk melanjutkan...");
         inputan.nextLine();
     }
@@ -356,15 +384,15 @@ public class BengkelUcu {
             double totalHargaSparepartInput = Double.parseDouble(inputan.nextLine());
 
             double totalPembayaran = totalHargaServisInput + totalHargaSparepartInput;
-            
+
             // Update totalPembayaran in daftarAntrian array
             daftarAntrian[nomorAntrian][5][1] = String.valueOf(totalPembayaran);
-            
+
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             String formatTanggalWaktu = now.format(formatter);
             statusAntrian[nomorAntrian] = "Selesai";
-            
+
             System.out.println("┌─────────────────────────────────────────────────┐");
             System.out.println("│\t\t STRUK PEMBAYARAN                 │");
             System.out.println("│                                                 │");
