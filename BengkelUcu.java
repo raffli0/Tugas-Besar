@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -184,7 +186,6 @@ public class BengkelUcu {
                 System.out.println("Input tidak valid");
                 System.out.print("Tekan Enter untuk melanjutkan...");
                 inputan.nextLine();
-
             }
         }
     }
@@ -218,27 +219,26 @@ public class BengkelUcu {
 
         // Waktu antrian customer ketika menambahkan antrian
         LocalDateTime waktuMasukAntrian = LocalDateTime.now();
+
         // Estimasi waktu selesai set 30min servis
         LocalDateTime waktuEstimasiSelesai = waktuMasukAntrian.plusMinutes(30);
 
         // Format waktu masuk dan waktu selesai
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        String formatWaktuMasuk = waktuMasukAntrian.format(formatter);
-        String formatEstimasiSelesai = waktuEstimasiSelesai.format(formatter);
-
-        // Display estimated completion time for the current customer
-        System.out.println("Estimasi waktu selesai: " + formatWaktuMasuk + " - " + formatEstimasiSelesai);
-        System.out.print("Tekan Enter untuk melanjutkan...");
-        inputan.nextLine();
 
         // Update the estimated completion time for the next customers
-        for (int i = rear - 1; i >= 0; i--) {
-            waktuEstimasiSelesai = waktuEstimasiSelesai.plusMinutes(30);
-            String formatWaktuSelesaiBerikutnya = waktuEstimasiSelesai.format(formatter);
-            System.out.println("Estimasi waktu selesai berikutnya: " + formatWaktuSelesaiBerikutnya);
-            System.out.print("Tekan Enter untuk melanjutkan...");
-            inputan.nextLine();
+        for (int i = rear; i >= 0; i--) {
+            // Get the latest estimated completion time
+            LocalDateTime waktuSelesai = waktuEstimasiSelesai;
+            // Add 30 minutes to the latest estimated completion time
+            waktuEstimasiSelesai = waktuSelesai.plusMinutes(30);
         }
+
+        // Format the estimated completion time
+        String formatWaktuSelesaiBerikutnya = waktuEstimasiSelesai.format(formatter);
+        System.out.println("Estimasi waktu selesai berikutnya: " + formatWaktuSelesaiBerikutnya);
+        System.out.print("Tekan Enter untuk melanjutkan...");
+        inputan.nextLine();
 
         if (front == -1) {
             front = 0;
@@ -286,7 +286,7 @@ public class BengkelUcu {
         System.out.println(
                 "┌─────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┬──────────────────┬───────────────────┐");
         System.out.printf("│ %-4s│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│ %-17s│%n", "ID", "Nama Pelanggan", "Jenis Motor",
-                "No Polisi", "Keluhan", "Status Antrian", "Total Harga Servis", "Estimasi");
+                "No Polisi", "Keluhan", "Status Antrian", "Total Harga Servis");
         System.out.println(
                 "├─────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┼──────────────────┼───────────────────┤");
         for (int i = front; i <= rear; i++) {
@@ -373,6 +373,14 @@ public class BengkelUcu {
         inputan.nextLine();
     }
 
+    public static String formatTitik(double number) {
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        formatter.setDecimalFormatSymbols(symbols);
+        return formatter.format(number);
+    }
+
     private static void printStruk() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -380,7 +388,6 @@ public class BengkelUcu {
         System.out.println("│                  " + String.format("%-22s", "PRINT STRUK") + "         │");
         System.out.println("└─────────────────────────────────────────────────┘");
         // menampilkan daftar antrian mulai
-        // System.out.println("=== Daftar Antrian ===");
         if (front == -1) {
             System.out.println("Daftar antrian kosong.\n");
             // Keluar dari menu
@@ -418,55 +425,86 @@ public class BengkelUcu {
         if (nomorAntrian >= front && nomorAntrian <= rear) {
             // Status antrian "selesai" otomatis
 
-            System.out.print("Masukkan harga servis: ");
-            double totalHargaServisInput = Double.parseDouble(inputan.nextLine());
+            // System.out.print("Masukkan harga servis: ");
+            // double totalHargaServisInput = Double.parseDouble(inputan.nextLine());
+            // daftarAntrian[nomorAntrian][5][1] = String.valueOf(totalHargaServisInput);
+            
+            double totalHargaServisInput = 0;
+            double totalHargaSparepartInput = 0;
+            double tunai = 0;
+            boolean validInput = false;
+            do {
+                try {
+                    System.out.print("Masukkan harga servis: ");
+                    totalHargaServisInput = Double.parseDouble(inputan.nextLine());
+                    System.out.print("Masukkan harga sparepart: ");
+                    totalHargaSparepartInput = Double.parseDouble(inputan.nextLine());
+                    System.out.print("Tunai        : Rp. ");
+                    tunai = Double.parseDouble(inputan.nextLine());
+                    validInput = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Inputan tidak valid. Silakan masukkan angka.");
+                }
+            } while (!validInput);
+
+            // Update totalHargaServis di daftarAntrian array
             daftarAntrian[nomorAntrian][5][1] = String.valueOf(totalHargaServisInput);
 
-            System.out.print("Masukkan harga sparepart: ");
-            double totalHargaSparepartInput = Double.parseDouble(inputan.nextLine());
-
+            // Hitung total pembayaran
             double totalPembayaran = totalHargaServisInput + totalHargaSparepartInput;
-
-            // Update totalPembayaran in daftarAntrian array
+            
+            // Update totalPembayaran di daftarAntrian array
             daftarAntrian[nomorAntrian][5][1] = String.valueOf(totalPembayaran);
 
+            // Ambil tanggal dan waktu sekarang
             LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-            String formatTanggalWaktu = now.format(formatter);
+
+            // Format tanggal dan waktu
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm ");
+            String formatTanggal = now.format(formatter);
+
+            // Update status antrian ke "Selesai"
             statusAntrian[nomorAntrian] = "Selesai";
 
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            // Print struk
             System.out.println("┌─────────────────────────────────────────────────┐");
             System.out.println("│\t\t STRUK PEMBAYARAN                 │");
             System.out.println("│                                                 │");
             System.out.println("└─────────────────────────────────────────────────┘");
-            System.out.printf("%-20s%-20s\n", "Nama Pelanggan:", daftarAntrian[nomorAntrian][0][1]);
-            System.out.printf("%-20s%-20s\n", "Jenis Motor:", daftarAntrian[nomorAntrian][1][1]);
-            System.out.printf("%-20s%-20s\n", "No Polisi:", daftarAntrian[nomorAntrian][2][1]);
-            System.out.printf("%-20s%-20s\n", "Keluhan:", daftarAntrian[nomorAntrian][3][1]);
-            System.out.printf("%-20s%-20s\n", "Status Antrian:", daftarAntrian[nomorAntrian][4][1]);
-            System.out.printf("%-20s%-20s\n", "Total Harga Servis:", "Rp. " + totalHargaServisInput);
-            System.out.printf("%-20s%-20s\n", "Total Harga Sparepart:", "Rp. " + totalHargaSparepartInput);
-            System.out.println("─────────────────────────────────────────────────");
+            System.out.println("───────────────────────────────────────────────────");
+            System.out.println("Tgl.\t" + formatTanggal + " \t");
+            System.out.println("───────────────────────────────────────────────────");
+            System.out.printf("%-20s%-20s\n", "Nama Pelanggan:                       ",daftarAntrian[nomorAntrian][0][1]);
+            System.out.printf("%-20s%-20s\n", "Jenis Motor:                          ",daftarAntrian[nomorAntrian][1][1]);
+            System.out.printf("%-20s%-20s\n", "No Polisi:                            ",daftarAntrian[nomorAntrian][2][1]);
+            System.out.printf("%-20s%-20s\n", "Keluhan:                              ",daftarAntrian[nomorAntrian][3][1]);
+            System.out.printf("%-20s%-20s\n", "Status Antrian:                       ",daftarAntrian[nomorAntrian][4][1]);
+            System.out.printf("%-20s%-20s\n", "Harga Servis:                         ","Rp. " + formatTitik(totalHargaServisInput));
+            System.out.printf("%-20s%-20s\n", "Harga Sparepart:                      ","Rp. " + formatTitik(totalHargaSparepartInput));
+            System.out.println("───────────────────────────────────────────────────");
+            System.out.printf("%-20s%-20s\n", "Total:                            ","Rp. " + formatTitik(totalPembayaran));
 
-            System.out.print("Tunai        = Rp. ");
-            double tunai = Double.parseDouble(inputan.nextLine());
+            // untuk format titik
+            String tunaiFormatted = formatTitik(tunai);
+            System.out.println("Tunai           = Rp. " + tunaiFormatted);
 
+            // cek apakah tunai cukup
             if (tunai < totalHargaServisInput + totalHargaSparepartInput) {
                 System.out.println("Maaf, pembayaran kurang. Transaksi tidak dilanjutkan.\n\n");
                 System.out.println("Tekan Enter untuk melanjutkan...");
                 inputan.nextLine();
                 printStruk();
             } else {
-                System.out.println("─────────────────────────────────────────────────");
+                // System.out.println("───────────────────────────────────────────────────");
                 double kembalian = tunai - totalPembayaran;
-                System.out.printf("%-20s%-20s\n", "Kembalian:", "Rp. " + kembalian);
-                System.out.println("─────────────────────────────────────────────────");
-                System.out.println("Tgl.\t" + formatTanggalWaktu + " \t V 0.1");
-                System.out.println("─────────────────────────────────────────────────");
-                System.out.println("\t\t Terima Kasih");
-                System.out.println("─────────────────────────────────────────────────");
-                System.out.println("\t\t Nama Admin");
-                System.out.println("─────────────────────────────────────────────────");
+                System.out.printf("%-20s%-20s\n", "Kembalian:", "Rp. " + formatTitik(kembalian));
+                System.out.println("───────────────────────────────────────────────────");
+                System.out.println("\t\t    Terima Kasih");
+                System.out.println("───────────────────────────────────────────────────");
+                System.out.println("\t\t     Nama Admin");
+                System.out.println("───────────────────────────────────────────────────");
 
                 // // Hapus antrian dari array
                 // for (int i = nomorAntrian; i < rear; i++) {
