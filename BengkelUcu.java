@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class BengkelUcu {
     // fungsi psf untuk menjadikan variabel constanta
-    private static final int MAX_ANTRIAN = 5; // Number Maksimal Antri
+    private static final int MAX_ANTRIAN = 4; // Number Maksimal Antri
 
     // Arrays to store booking information
     private static String[] namaPelanggan = new String[MAX_ANTRIAN];
@@ -69,7 +69,7 @@ public class BengkelUcu {
 
                 } else if (opsiAntrian.equals("4")) {
                     hapusSatuDataAntrian();
-                    
+
                 } else if (opsiAntrian.equals("5")) {
                     // Clear screen
                     System.out.print("\033[H\033[2J");
@@ -121,7 +121,7 @@ public class BengkelUcu {
                 System.out.println("Aplikasi ini adalah sistem antrian dan transaksi untuk bengkel.\n");
                 System.out.println("Berikut adalah langkah-langkah penggunaan aplikasi:\n");
                 System.out.println("1. Pilih menu 'Antrian' untuk manajemen antrian pelanggan.");
-                System.out.println("   1. Tambah Daftar Antrian: Tambahkan pelanggan ke dalam antrian."); 
+                System.out.println("   1. Tambah Daftar Antrian: Tambahkan pelanggan ke dalam antrian.");
                 System.out.println("   2. Lihat Daftar Antrian: Lihat daftar pelanggan yang sedang dalam antrian.");
                 System.out.println("   3. Reset Data Antrian: Hapus semua data antrian dan mulai dari awal.");
                 System.out.println("   4. Hapus 1 Data Antrian: Hapus 1 data antrian yang pertama masuk.");
@@ -205,7 +205,7 @@ public class BengkelUcu {
         System.out.print("Keluhan: ");
         String keluhanInput = inputan.nextLine();
 
-        // Check jika antrian full
+        // Check if the queue is full
         if (rear == MAX_ANTRIAN - 1) {
             System.out.println("Antrian penuh, mohon coba lagi nanti.");
             System.out.print("Tekan Enter untuk melanjutkan...");
@@ -216,37 +216,26 @@ public class BengkelUcu {
             System.out.println("Nomor antrian anda: " + id + "\ndaftar antrian ditambahkan!");
         }
 
-        // waktu antrian customer ketika menambahkan antrian
+        // Waktu antrian customer ketika menambahkan antrian
         LocalDateTime waktuMasukAntrian = LocalDateTime.now();
-        // estimasi waktu selesai set 30min servis
-        LocalDateTime waktuEstimasiSelesai = waktuMasukAntrian.plusMinutes(30); // estimasi 30 menit
-        // waktu sebelumnya
+        // Estimasi waktu selesai set 30min servis
+        LocalDateTime waktuEstimasiSelesai = waktuMasukAntrian.plusMinutes(30);
 
-        // format waktu masuk dan waktu selesai
+        // Format waktu masuk dan waktu selesai
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String formatWaktuMasuk = waktuMasukAntrian.format(formatter);
         String formatEstimasiSelesai = waktuEstimasiSelesai.format(formatter);
 
-        // If this is not the first customer, calculate the estimated service completion
-        // time for the next customer
-        if (rear == -1) {
-            System.out.println("Estimasi waktu selesai: " + formatWaktuMasuk + " - " + formatEstimasiSelesai);
-            System.out.print("Tekan Enter untuk melanjutkan...");
-            inputan.nextLine();
+        // Display estimated completion time for the current customer
+        System.out.println("Estimasi waktu selesai: " + formatWaktuMasuk + " - " + formatEstimasiSelesai);
+        System.out.print("Tekan Enter untuk melanjutkan...");
+        inputan.nextLine();
 
-        } else {
-            LocalDateTime waktuSebelumnya = waktuEstimasiSelesai.plusMinutes(30);
-            LocalDateTime waktuAntrian2 = waktuMasukAntrian.plusMinutes(30);
-
-            // Format the estimated completion time for the next customer
-            waktuEstimasiSelesai = waktuSebelumnya.plusMinutes(30);
-            waktuMasukAntrian = waktuAntrian2.plusMinutes(30);
-
+        // Update the estimated completion time for the next customers
+        for (int i = rear - 1; i >= 0; i--) {
+            waktuEstimasiSelesai = waktuEstimasiSelesai.plusMinutes(30);
             String formatWaktuSelesaiBerikutnya = waktuEstimasiSelesai.format(formatter);
-            String formatWaktuMasukBerikutnya = waktuMasukAntrian.format(formatter);
-
-            System.out.println("Estimasi waktu selesai berikutnya: " + formatWaktuMasukBerikutnya + " - "
-                    + formatWaktuSelesaiBerikutnya);
+            System.out.println("Estimasi waktu selesai berikutnya: " + formatWaktuSelesaiBerikutnya);
             System.out.print("Tekan Enter untuk melanjutkan...");
             inputan.nextLine();
         }
@@ -256,7 +245,7 @@ public class BengkelUcu {
         }
         rear++;
 
-        // simpan data ke dalam array 1 dimensi
+        // Simpan data ke dalam array 1 dimensi
         namaPelanggan[rear] = namaPelangganInput;
         jenisMotor[rear] = jenisMotorInput;
         noPolisi[rear] = noPolisiInput;
@@ -264,7 +253,7 @@ public class BengkelUcu {
         statusAntrian[rear] = "Proses";
         totalHargaServis[rear] = 0;
 
-        // simpan data ke dalam array multi dimensi
+        // Simpan data ke dalam array multi dimensi
         daftarAntrian[rear][0][0] = "Nama Pelanggan";
         daftarAntrian[rear][0][1] = namaPelangganInput;
         daftarAntrian[rear][1][0] = "Jenis Motor";
@@ -276,7 +265,7 @@ public class BengkelUcu {
         daftarAntrian[rear][4][0] = "Status";
         daftarAntrian[rear][4][1] = "Proses";
         daftarAntrian[rear][5][0] = "Total Harga Servis";
-        daftarAntrian[rear][5][1] = "0"; // inisialisasi totalHargaServis for this queue
+        daftarAntrian[rear][5][1] = "0"; // Inisialisasi totalHargaServis for this queue
     }
 
     private static void lihatdaftarAntrian() {
