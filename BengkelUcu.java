@@ -197,14 +197,55 @@ public class BengkelUcu {
         System.out.println("┌─────────────────────────────────────────────────┐");
         System.out.println("│               " + String.format("%-22s", "TAMBAH DAFTAR ANTRIAN") + "            │");
         System.out.println("└─────────────────────────────────────────────────┘");
+
+        // Input data antrian start
         System.out.print("Nama Pelanggan: ");
-        String namaPelangganInput = inputan.nextLine();
+        String namaPelangganInput;
+        while (true) {
+            namaPelangganInput = inputan.nextLine();
+            if (namaPelangganInput.matches(".*\\d.*") || namaPelangganInput.isEmpty()) {
+                System.out.println("Inputan tidak valid. Nama tidak boleh kosong dan tidak boleh mengandung angka. Silakan coba lagi.");
+                System.out.print("Nama Pelanggan: ");
+            } else {
+                break;
+            }
+        }
+
         System.out.print("Jenis Motor: ");
-        String jenisMotorInput = inputan.nextLine();
+        String jenisMotorInput;
+        while (true) {
+            jenisMotorInput = inputan.nextLine();
+            if (jenisMotorInput.matches(".*\\d.*") || jenisMotorInput.isEmpty()) {
+                System.out.println("Inputan tidak valid. Jenis motor tidak boleh kosong dan tidak boleh mengandung angka. Silakan coba lagi.");
+                System.out.print("Jenis Motor: ");
+            } else {
+                break;
+            }
+        }
+
         System.out.print("No Polisi: ");
-        String noPolisiInput = inputan.nextLine();
+        String noPolisiInput;
+        while (true) {
+            noPolisiInput = inputan.nextLine();
+            if (noPolisiInput.isEmpty()) {
+                System.out.println("Inputan tidak valid. No Polisi tidak boleh kosong. Silakan coba lagi.");
+                System.out.print("No Polisi: ");
+            } else {
+                break;
+            }
+        }
+
         System.out.print("Keluhan: ");
-        String keluhanInput = inputan.nextLine();
+        String keluhanInput;
+        while (true) {
+            keluhanInput = inputan.nextLine();
+            if (keluhanInput.isEmpty() || keluhanInput.matches(".*\\d.*")) {
+                System.out.println("Inputan tidak valid. Keluhan tidak boleh kosong dan tidak boleh mengandung angka. Silakan coba lagi.");
+                System.out.print("Keluhan: ");
+            } else {
+                break;
+            }
+        }
 
         // Check if the queue is full
         if (rear == MAX_ANTRIAN - 1) {
@@ -309,8 +350,8 @@ public class BengkelUcu {
         inputan.nextLine();
     }
 
-    private static void resetDaftarAntrian() { // fitur ini bisa diganti saat antrian selesai transaksi maka antrian //
-                                               // dihapus
+    private static void resetDaftarAntrian() { // fitur ini bisa diganti saat antrian selesai transaksi maka antrian dihapus
+                                               
         // mengubah depan dan belakang menjadi ke nilai awal
         front = -1;
         rear = -1;
@@ -373,6 +414,7 @@ public class BengkelUcu {
         inputan.nextLine();
     }
 
+    // Fungsi untuk format titik
     public static String formatTitik(double number) {
         DecimalFormat formatter = new DecimalFormat("#,###");
         DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
@@ -419,20 +461,27 @@ public class BengkelUcu {
         // Daftar antrian end
 
         // KODE PRINT STRUK MULAI
-        System.out.print("Masukkan nomor antrian(ID) untuk print struk: ");
-        int nomorAntrian = Integer.parseInt(inputan.nextLine());
+        int nomorAntrian = 0;
+        boolean validInput = false;
+        do {
+            try {
+                System.out.print("Masukkan nomor antrian: ");
+                nomorAntrian = Integer.parseInt(inputan.nextLine());
+                validInput = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Inputan tidak valid. Silakan masukkan angka.");
+            }
+        } while (!validInput);
 
         if (nomorAntrian >= front && nomorAntrian <= rear) {
             // Status antrian "selesai" otomatis
-
-            // System.out.print("Masukkan harga servis: ");
-            // double totalHargaServisInput = Double.parseDouble(inputan.nextLine());
-            // daftarAntrian[nomorAntrian][5][1] = String.valueOf(totalHargaServisInput);
+            // Update status antrian ke "Selesai"
+            statusAntrian[nomorAntrian] = "Selesai";
             
             double totalHargaServisInput = 0;
             double totalHargaSparepartInput = 0;
             double tunai = 0;
-            boolean validInput = false;
+            validInput = false;
             do {
                 try {
                     System.out.print("Masukkan harga servis: ");
@@ -463,11 +512,10 @@ public class BengkelUcu {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm ");
             String formatTanggal = now.format(formatter);
 
-            // Update status antrian ke "Selesai"
-            statusAntrian[nomorAntrian] = "Selesai";
-
+            // Clear screen
             System.out.print("\033[H\033[2J");
             System.out.flush();
+
             // Print struk
             System.out.println("┌─────────────────────────────────────────────────┐");
             System.out.println("│\t\t STRUK PEMBAYARAN                 │");
@@ -484,11 +532,11 @@ public class BengkelUcu {
             System.out.printf("%-20s%-20s\n", "Harga Servis:                         ","Rp. " + formatTitik(totalHargaServisInput));
             System.out.printf("%-20s%-20s\n", "Harga Sparepart:                      ","Rp. " + formatTitik(totalHargaSparepartInput));
             System.out.println("───────────────────────────────────────────────────");
-            System.out.printf("%-20s%-20s\n", "Total:                            ","Rp. " + formatTitik(totalPembayaran));
+            System.out.printf("%-20s%-20s\n", "Total:                                ","Rp. " + formatTitik(totalPembayaran));
 
             // untuk format titik
             String tunaiFormatted = formatTitik(tunai);
-            System.out.println("Tunai           = Rp. " + tunaiFormatted);
+            System.out.println("Tunai:                                Rp. " + tunaiFormatted);
 
             // cek apakah tunai cukup
             if (tunai < totalHargaServisInput + totalHargaSparepartInput) {
@@ -499,27 +547,13 @@ public class BengkelUcu {
             } else {
                 // System.out.println("───────────────────────────────────────────────────");
                 double kembalian = tunai - totalPembayaran;
-                System.out.printf("%-20s%-20s\n", "Kembalian:", "Rp. " + formatTitik(kembalian));
+                System.out.printf("%-20s%-20s\n", "Kembalian:                            ", "Rp. " + formatTitik(kembalian));
                 System.out.println("───────────────────────────────────────────────────");
                 System.out.println("\t\t    Terima Kasih");
                 System.out.println("───────────────────────────────────────────────────");
                 System.out.println("\t\t     Nama Admin");
                 System.out.println("───────────────────────────────────────────────────");
 
-                // // Hapus antrian dari array
-                // for (int i = nomorAntrian; i < rear; i++) {
-                // namaPelanggan[i] = namaPelanggan[i + 1];
-                // jenisMotor[i] = jenisMotor[i + 1];
-                // noPolisi[i] = noPolisi[i + 1];
-                // keluhan[i] = keluhan[i + 1];
-                // statusAntrian[i] = statusAntrian[i + 1];
-                // totalHargaServis[i] = totalHargaServis[i + 1];
-                // }
-
-                // // Reset rear
-                // // rear--;
-                // // Tampilkan pesan sukses
-                // System.out.println("Antrian berhasil diselesaikan dan dihapus.");
             }
         } else {
             System.out.println("Nomor antrian tidak valid. Silakan coba lagi.");
@@ -528,9 +562,24 @@ public class BengkelUcu {
             printStruk();
         }
         System.out.println("Transaksi berhasil...");
-        System.out.print("Tekan Enter untuk melanjutkan");
-        inputan.nextLine();
-        printStruk();
+        System.out.println("1. Print struk lagi");
+        System.out.println("2. Kembali ke menu utama\n");
+        System.out.print("Masukkan pilihan (1/2): ");
+        String pilihan = inputan.nextLine();
+
+        switch (pilihan) {
+            case "1":
+                // memanggil method printStruk
+                printStruk();
+                break;
+            case "2":
+                // Clear screen dan kembali ke menu utama
+                System.out.print("\033[H\033[2J");
+                break;
+            default:
+                System.out.println("Input tidak valid.");
+                break;
+        }
 
     }
 
