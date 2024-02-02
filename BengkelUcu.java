@@ -564,7 +564,7 @@ public class BengkelUcu {
         System.out.println("Transaksi berhasil...");
         System.out.println("1. Print struk lagi");
         System.out.println("2. Kembali ke menu utama\n");
-        System.out.print("Masukkan pilihan (1/2): ");
+        System.out.print("Pilih menu (1/2): ");
         String pilihan = inputan.nextLine();
 
         switch (pilihan) {
