@@ -124,13 +124,26 @@ public class BengkelUcu {
                 System.out.println("Berikut adalah langkah-langkah penggunaan aplikasi:\n");
                 System.out.println("1. Pilih menu 'Antrian' untuk manajemen antrian pelanggan.");
                 System.out.println("   1. Tambah Daftar Antrian: Tambahkan pelanggan ke dalam antrian.");
+                System.out.println("        - Nama Pelanggan: Nama lengkap pelanggan.");
+                System.out.println("        - Jenis Motor: Jenis motor pelanggan.");
+                System.out.println("        - No Polisi: Nomor polisi motor pelanggan.");
+                System.out.println("        - Keluhan: Keluhan yang dialami pelanggan.");
+                System.out.println("        - Nomor antrian: Nomor antrian yang diberikan kepada pelanggan.");
+                System.out.println("        - Estimasi waktu selesai: 30 menit setiap pelanggan.");
+                System.out.println("        - Tekan Enter untuk melanjutkan...");
                 System.out.println("   2. Lihat Daftar Antrian: Lihat daftar pelanggan yang sedang dalam antrian.");
                 System.out.println("   3. Reset Data Antrian: Hapus semua data antrian dan mulai dari awal.");
                 System.out.println("   4. Hapus 1 Data Antrian: Hapus 1 data antrian yang pertama masuk.");
                 System.out.println("   5. Keluar Dari Menu: Kembali ke menu utama.\n");
 
                 System.out.println("2. Pilih menu 'Transaksi' untuk melakukan transaksi pembayaran.");
-                System.out.println("   1. Print Struk: Pilih nomor antrian untuk mencetak struk pembayaran.");
+                System.out.println("   1. Print Struk: untuk mencetak struk pembayaran.");
+                System.out.println("        - Masukkan nomor antrian: Nomor antrian yang ingin dicetak struknya.");
+                System.out.println("        - Masukkan harga servis: Harga servis yang diberikan kepada pelanggan.");
+                System.out.println("        - Masukkan harga sparepart: Harga sparepart yang diberikan kepada pelanggan.");
+                System.out.println("        - Masukkan tunai: Jumlah uang yang diberikan oleh pelanggan.");
+                System.out.println("        - Struk pembayaran akan dicetak.");
+                System.out.println("        - Pilih menu (1) untuk 'Print Struk' lagi atau (2) untuk kembali ke menu utama.");
                 System.out.println("   2. Keluar Dari Menu: Kembali ke menu utama.\n");
 
                 System.out.println("3. Pilih menu 'Cara Penggunaan' untuk melihat panduan penggunaan aplikasi.\n");
@@ -155,9 +168,12 @@ public class BengkelUcu {
                 System.out.println("┌─────────────────────────────────────────────────┐");
                 System.out.println("│                   " + String.format("%-22s", "ABOUT US") + "        │");
                 System.out.println("└─────────────────────────────────────────────────┘");
-                System.out.println("Developer : AING");
-                System.out.println("Flowchart : IZAL");
-                System.out.println("KONSEP : UMAM\n");
+                System.out.println("Aplikasi ini dibuat oleh:\n");
+                System.out.println("1. Raffly");
+                System.out.println("2. Muhammad Rizal Afrizal");
+                System.out.println("3. Khoirul Umam");
+                System.out.println("Dibuat aplikasi ini adalah sebagai Solusi mudah bagi Penguasaha atau UMKM Bengkel untuk memudahkan proses transaksi dan antrian.\n");
+                System.out.println("Fitur yang kami tawarkan di aplikasi ini adalah seperti mengelola antrian, memproses transaksi dll. Misi kami adalah untuk memudahkan pengguna ber-transaksi dan membuatnya mudah bagi pelanggan ketika merencanakan kunjungan di bengkel. Kami mengoptimalkan pengalaman pelanggan, dengan mengurangi waktu tunggu dan melayani dengan lebih cepat, dan lebih efisien.\n");
 
                 // Keluar dari menu cara penggunaan
                 System.out.print("Tekan Enter untuk kembali ke menu utama...");
@@ -564,7 +580,7 @@ public class BengkelUcu {
         System.out.println("Transaksi berhasil...");
         System.out.println("1. Print struk lagi");
         System.out.println("2. Kembali ke menu utama\n");
-        System.out.print("Pilih menu (1/2): ");
+        System.out.print("Masukkan pilihan (1/2): ");
         String pilihan = inputan.nextLine();
 
         switch (pilihan) {
