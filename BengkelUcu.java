@@ -401,6 +401,8 @@ public class BengkelUcu {
         String jenisMotorHapus = jenisMotor[front];
         String noPolisiHapus = noPolisi[front];
         String keluhanHapus = keluhan[front];
+        String statusAntrianHapus = statusAntrian[front];
+        String totalHargaServisHapus = "Rp. " + daftarAntrian[front][5][1];
 
         // Tampilkan data yang akan dihapus
         System.out.println("Data Antrian yang dihapus:");
@@ -408,6 +410,9 @@ public class BengkelUcu {
         System.out.println("Jenis Motor: " + jenisMotorHapus);
         System.out.println("No Polisi: " + noPolisiHapus);
         System.out.println("Keluhan: " + keluhanHapus);
+        System.out.println("Status Antrian: " + statusAntrianHapus);
+        System.out.println("Total Harga Servis: " + totalHargaServisHapus);
+
 
         // Geser data antrian ke depan
         for (int i = front; i < rear; i++) {
@@ -415,6 +420,8 @@ public class BengkelUcu {
             jenisMotor[i] = jenisMotor[i + 1];
             noPolisi[i] = noPolisi[i + 1];
             keluhan[i] = keluhan[i + 1];
+            statusAntrian[i] = statusAntrian[i + 1];
+            totalHargaServis[i] = totalHargaServis[i + 1];
         }
 
         // Kurangi nilai rear
